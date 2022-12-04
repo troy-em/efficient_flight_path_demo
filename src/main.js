@@ -52,8 +52,16 @@ function flightpath(departurepoint, arrivalpoint) {
           matcheddeparturepoint.push(flightsData[i].flightNumber)
         }
     }
-    console.log("Matched Departure Points: "+matcheddeparturepoint)
-    console.log("Matched Arrival Points: "+matchedarrivalpoint)
+    if (matcheddeparturepoint.length === 0) {
+          alert("Sorry! No Flight From "+departurepoint+" currently!")
+    } else {
+      console.log("Matched Departure Points: "+matcheddeparturepoint)
+      if (matchedarrivalpoint.length === 0) {
+        alert("Sorry! No Flight To "+arrivalpoint+" currently!")
+      } else {
+        console.log("Matched Arrival Points: "+matchedarrivalpoint)
+      }
+    }
 }
 
 

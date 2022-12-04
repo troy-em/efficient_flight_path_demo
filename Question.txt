@@ -7,14 +7,4 @@ For the example below, an input of 'NYC', 'WIL' should return: [1, 3, 5]. Flight
 
 
 
-Sudo Function
-
-1. Get user input - Departure point - Arrival point
-2. Loop through flights data for Flights with departure point same as the departure point input - store these flight numbers in an array.
-3. Loop through the array to check for available seets - store flight numbers with available seats in an array.
-3. Check for departure time to pick the flight leaving earlier than the rest
-3. get departuredate of the flight
-3. Check for available seats - if availableSeats = 0 then skip
-4. If there are available sits - get the arrival time - save into a variable
-5. Next flight  with departurePoint same as the departure point input
-6. Get arrivalDate and compare it with the saved de
+Sudo Function;

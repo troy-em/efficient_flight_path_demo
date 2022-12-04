@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/styles/main.css" />
+    <title>Flight Demo</title>
+  </head>
+  <body>
+    <form action="#" method="post">
+        <h2>Flight Check Demo</h2>
+        <hr>
+        <br>
+        <br>
+      <p>
+        <label for="departurepoint">Departure Point</label>
+        <input id="departurepoint" name="departurepoint" type="text" />
+        <span class="left" style="display: none;">Please Enter Departure Point !</span>
+      </p>
+      <p>
+        <label for="arrivalpoint">Arrival Point</label>
+        <input id="arrivalpoint" name="arrivalpoint" type="text" />
+        <span class="right" style="display: none;">Please Enter Arrival Point !</span>
+      </p>
+      <div style="justify-content: center; align-items: center;">
+            <h2>Most Efficient Route:</h2><br>
+            <div style="background-color:rgba(200, 221, 200, 0.2); border-radius: 6px;">
+                <p id="routearr" style="font-size:18px; padding: 14px; color: rgb(4, 104, 82);"> 1, 2, 3 </p>
+            </div>
+      </div>
+        <input type="button" value="CHECK" id="submit" onclick="inputCheck();"/>
+      </p>
+    </form>
+    <script
+      src="https://code.jquery.com/jquery-1.11.0.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script src="main.js" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>

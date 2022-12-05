@@ -40,19 +40,20 @@ const flightsData = [ {
   } ];
 
 function efficientflightpath(departurepoint, arrivalpoint) {
-    console.log("Dep,Arr:" +departurepoint +","+arrivalpoint)
+    console.log("Dep,Arr: " +departurepoint +","+arrivalpoint)
 
     // check for flights that match the user arrival point input and departure point
-    let matchedarrivalpoint = []
     let matcheddeparturepoint = []
+    let matchedarrivalpoint = []
     let matcheddeparturepointwithavailableseats = []
+    let matchedarrivalpointwithavailableseats = []
     for (var i = 0; i < flightsData.length; i++) {
-        if (flightsData[i].arrivalPoint == arrivalpoint) {
-          matchedarrivalpoint.push(flightsData[i].flightNumber)
-        }
-        if (flightsData[i].departurePoint == departurepoint) {
-          matcheddeparturepoint.push(flightsData[i].flightNumber)
-        }
+      if (flightsData[i].departurePoint == departurepoint) {
+        matcheddeparturepoint.push(flightsData[i].flightNumber)
+      }
+      if (flightsData[i].arrivalPoint == arrivalpoint) {
+        matchedarrivalpoint.push(flightsData[i].flightNumber)
+      }
     }
 
     // check if departure and arrival points selected are available
@@ -73,7 +74,27 @@ function efficientflightpath(departurepoint, arrivalpoint) {
               matcheddeparturepointwithavailableseats.push(currentflightnumber)
               console.log("matcheddeparturepointwithavailableseats: "+matcheddeparturepointwithavailableseats)
             }
-    }
+        }
+
+        for (var i = 0; i < matchedarrivalpoint.length; i++) {
+          let currentflightnumber = matchedarrivalpoint[i]
+          for (var j = 0; j < flightsData.length; j++)
+            if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
+              matchedarrivalpointwithavailableseats.push(currentflightnumber)
+              console.log("matchedarrivalpointwithavailableseats: "+matchedarrivalpointwithavailableseats)
+            }
+        }
+
+        if (matcheddeparturepointwithavailableseats.length === 0 || matchedarrivalpointwithavailableseats.length === 0) {
+            alert("Sorry! No Complete Connection from " +departurepoint+" to "+arrivalpoint+" with available seats")
+        } else {
+
+          // check for direct connection
+          // for (var i =0; i < matcheddeparturepointwithavailableseats.length; i++) {
+          //   let currentlightnumber = 
+          // }
+
+        }
       }
     }
 }

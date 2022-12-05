@@ -13,3 +13,5 @@ ANSWER:
 According to the "Travel Advisers", single flights or flights with the least number of connections between departure and arrival point are more efficient for both the passenger and the airline management.
 
 This solution aims at implement a function to ge the route with the least hopes between two points hence the effecient path between them.
+
+I will also try to implement the option for chooisng time based efficency

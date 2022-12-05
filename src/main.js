@@ -39,11 +39,13 @@ const flightsData = [ {
     arrivalPoint: 'WIL',
   } ];
 
-function flightpath(departurepoint, arrivalpoint) {
+function efficientflightpath(departurepoint, arrivalpoint) {
     console.log("Dep,Arr:" +departurepoint +","+arrivalpoint)
+
     // check for flights that match the user arrival point input and departure point
     let matchedarrivalpoint = []
     let matcheddeparturepoint = []
+    let matcheddeparturepointwithavailableseats = []
     for (var i = 0; i < flightsData.length; i++) {
         if (flightsData[i].arrivalPoint == arrivalpoint) {
           matchedarrivalpoint.push(flightsData[i].flightNumber)
@@ -52,6 +54,8 @@ function flightpath(departurepoint, arrivalpoint) {
           matcheddeparturepoint.push(flightsData[i].flightNumber)
         }
     }
+
+    // check if departure and arrival points selected are available
     if (matcheddeparturepoint.length === 0) {
           alert("Sorry! No Flight From "+departurepoint+" currently!")
     } else {
@@ -60,11 +64,19 @@ function flightpath(departurepoint, arrivalpoint) {
         alert("Sorry! No Flight To "+arrivalpoint+" currently!")
       } else {
         console.log("Matched Arrival Points: "+matchedarrivalpoint)
+
+        // get only flights with available sits
+        for (var i = 0; i < matcheddeparturepoint.length; i++) {
+          let currentflightnumber = matcheddeparturepoint[i]
+          for (var j = 0; j < flightsData.length; j++)
+            if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
+              matcheddeparturepointwithavailableseats.push(currentflightnumber)
+              console.log("matcheddeparturepointwithavailableseats: "+matcheddeparturepointwithavailableseats)
+            }
+    }
       }
     }
 }
-
-
 
 function inputCheck() {
     // Get Departure Point Input
@@ -83,7 +95,7 @@ function inputCheck() {
             alert("Please Enter Arrival Point !")
         } else {
           console.log("Arrival Point: " +arrivalpoint)
-          flightpath(departurepoint, arrivalpoint)
+          efficientflightpath(departurepoint, arrivalpoint)
         }
     }
 }

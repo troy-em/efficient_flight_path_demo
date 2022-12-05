@@ -47,6 +47,7 @@ function efficientflightpath(departurepoint, arrivalpoint) {
     let matchedarrivalpoint = []
     let matcheddeparturepointwithavailableseats = []
     let matchedarrivalpointwithavailableseats = []
+    let directflights = []
     for (var i = 0; i < flightsData.length; i++) {
       if (flightsData[i].departurePoint == departurepoint) {
         matcheddeparturepoint.push(flightsData[i].flightNumber)
@@ -89,10 +90,24 @@ function efficientflightpath(departurepoint, arrivalpoint) {
             alert("Sorry! No Complete Connection from " +departurepoint+" to "+arrivalpoint+" with available seats")
         } else {
 
-          // check for direct connection
-          // for (var i =0; i < matcheddeparturepointwithavailableseats.length; i++) {
-          //   let currentlightnumber = 
-          // }
+          // check for direct flights
+          for (var i = 0; i < matcheddeparturepointwithavailableseats.length; i++) {
+            let currentflightnumber =  matcheddeparturepointwithavailableseats[i]
+            for (var j = 0; j < matchedarrivalpointwithavailableseats.length; j++) {
+              if (matchedarrivalpointwithavailableseats[j] != currentflightnumber) {
+                console.log("Not Direct Flight")
+              } else {
+                directflights.push(matchedarrivalpointwithavailableseats[j])
+                console.log("Direct Flights: "+directflights)
+
+                // if direct flights are more than one, compare flight duration
+
+              }
+            }
+          }
+
+          // if no direct flights
+          
 
         }
       }

@@ -14,4 +14,4 @@ According to the "Travel Advisers", single flights or flights with the least num
 
 This solution aims at implement a function to ge the route with the least hopes between two points hence the effecient path between them.
 
-I will also try to implement the option for chooisng time based efficency
+I will also try to implement the option for choosing time based efficency

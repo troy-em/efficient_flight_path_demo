@@ -10,7 +10,7 @@ const flightsData = [ {
     flightNumber: 2,
     departureDate: '2022-01-01T18:00:00-05:00',
     arrivalDate: '2022-01-02T19:00:00+03:00',
-    availableSeats: 0,
+    availableSeats: 2,
     departurePoint: 'NYC',
     arrivalPoint: 'NBI',
   },
@@ -48,6 +48,7 @@ function efficientflightpath(departurepoint, arrivalpoint) {
     let matcheddeparturepointwithavailableseats = []
     let matchedarrivalpointwithavailableseats = []
     let directflights = []
+    let directflightsduration = []
     for (var i = 0; i < flightsData.length; i++) {
       if (flightsData[i].departurePoint == departurepoint) {
         matcheddeparturepoint.push(flightsData[i].flightNumber)
@@ -70,20 +71,22 @@ function efficientflightpath(departurepoint, arrivalpoint) {
         // get only flights with available sits
         for (var i = 0; i < matcheddeparturepoint.length; i++) {
           let currentflightnumber = matcheddeparturepoint[i]
-          for (var j = 0; j < flightsData.length; j++)
+          for (var j = 0; j < flightsData.length; j++) {
             if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
               matcheddeparturepointwithavailableseats.push(currentflightnumber)
               console.log("matcheddeparturepointwithavailableseats: "+matcheddeparturepointwithavailableseats)
             }
+          }
         }
 
         for (var i = 0; i < matchedarrivalpoint.length; i++) {
           let currentflightnumber = matchedarrivalpoint[i]
-          for (var j = 0; j < flightsData.length; j++)
+          for (var j = 0; j < flightsData.length; j++) {
             if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
               matchedarrivalpointwithavailableseats.push(currentflightnumber)
               console.log("matchedarrivalpointwithavailableseats: "+matchedarrivalpointwithavailableseats)
             }
+          }
         }
 
         if (matcheddeparturepointwithavailableseats.length === 0 || matchedarrivalpointwithavailableseats.length === 0) {
@@ -101,13 +104,25 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                 console.log("Direct Flights: "+directflights)
 
                 // if direct flights are more than one, compare flight duration
+                if (directflights.length > 1) {
+                  for (var i = 0; i < directflights.length; i++) {
+                    let currentflightnumber = directflights[i]
+                    for (var j = 0; j < flightsData.length; j++) {
+                      if (flightsData[j].flightNumber ==  currentflightnumber) {
+                        directflightsduration.push(Math.abs((new Date(flightsData[j].arrivalDate))-(new Date(flightsData[j].departureDate))))
+                        console.log("directflightsduration: "+directflightsduration)
+                      }
+                    }
+                  }
 
+                  // if duration is the same pick the earliest departure time
+                  
+                }
               }
             }
           }
 
           // if no direct flights
-          
 
         }
       }

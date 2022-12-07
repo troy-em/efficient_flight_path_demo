@@ -43,6 +43,7 @@ function efficientflightpath(departurepoint, arrivalpoint) {
     console.log("Dep,Arr: " +departurepoint +","+arrivalpoint)
 
     // check for flights that match the user arrival point input and departure point
+    var efficientroute = document.getElementById("routearr")
     let matcheddeparturepoint = []
     let matchedarrivalpoint = []
     let matcheddeparturepointwithavailableseats = []
@@ -74,20 +75,20 @@ function efficientflightpath(departurepoint, arrivalpoint) {
           for (var j = 0; j < flightsData.length; j++) {
             if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
               matcheddeparturepointwithavailableseats.push(currentflightnumber)
-              console.log("matcheddeparturepointwithavailableseats: "+matcheddeparturepointwithavailableseats)
             }
           }
         }
+        console.log("matcheddeparturepointwithavailableseats: "+matcheddeparturepointwithavailableseats)
 
         for (var i = 0; i < matchedarrivalpoint.length; i++) {
           let currentflightnumber = matchedarrivalpoint[i]
           for (var j = 0; j < flightsData.length; j++) {
             if (flightsData[j].flightNumber ==  currentflightnumber && flightsData[j].availableSeats != 0) {
               matchedarrivalpointwithavailableseats.push(currentflightnumber)
-              console.log("matchedarrivalpointwithavailableseats: "+matchedarrivalpointwithavailableseats)
             }
           }
         }
+        console.log("matchedarrivalpointwithavailableseats: "+matchedarrivalpointwithavailableseats)
 
         if (matcheddeparturepointwithavailableseats.length === 0 || matchedarrivalpointwithavailableseats.length === 0) {
             alert("Sorry! No Complete Connection from " +departurepoint+" to "+arrivalpoint+" with available seats")
@@ -103,20 +104,52 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                 directflights.push(matchedarrivalpointwithavailableseats[j])
                 console.log("Direct Flights: "+directflights)
 
-                // if direct flights are more than one, compare flight duration
+                // if direct flights are more than one, compare flight duration and pick the fastest
                 if (directflights.length > 1) {
                   for (var i = 0; i < directflights.length; i++) {
                     let currentflightnumber = directflights[i]
                     for (var j = 0; j < flightsData.length; j++) {
                       if (flightsData[j].flightNumber ==  currentflightnumber) {
                         directflightsduration.push(Math.abs((new Date(flightsData[j].arrivalDate))-(new Date(flightsData[j].departureDate))))
-                        console.log("directflightsduration: "+directflightsduration)
                       }
                     }
                   }
 
-                  // if duration is the same pick the earliest departure time
-                  
+                  console.log("directflightsduration: "+directflightsduration)
+                  let fastestdirectflight = Math.min(...directflightsduration)
+                  console.log("Fastest Direct Flight: "+fastestdirectflight)
+                  let fastestdirectflights = directflightsduration.filter((v) => (v === fastestdirectflight)).length;
+                  console.log("fastestdirectflights: "+fastestdirectflights)
+
+                  // if fastestdirectflights is more than one pick the earliest departure time
+                  if (fastestdirectflights > 1) {
+                    console.log("fastestdirectflights more than one....")
+                    let directflightsdeparturetime =[]
+                    for (var i = 0; i < directflights.length; i++) {
+                      let currentflightnumber = directflights[i]
+                      for (var j = 0; j < flightsData.length; j++) {
+                        if (flightsData[j].flightNumber ==  currentflightnumber) {
+                          directflightsdeparturetime.push(new Date(flightsData[j].departureDate))
+                        }
+                      }
+                    }
+                    console.log("directflightsdeparturetime: "+directflightsdeparturetime)
+                    let ordereddirectflightsdeparturetime = directflightsdeparturetime.sort(function(a,b){return Date.parse(a) > Date.parse(b)})
+                    let earliestdirectflightdeptime = ordereddirectflightsdeparturetime[0]
+                    console.log("earliestdirectflightdeptime: "+earliestdirectflightdeptime)
+                    for (var i = 0; i < directflights.length; i++) {
+                      let currentflightnumber = directflights[i]
+                      for (var j = 0; j < flightsData.length; j++) {
+                        if (flightsData[j].flightNumber ==  currentflightnumber && (new Date(flightsData[j].departureDate)).getTime() == (earliestdirectflightdeptime).getTime()) {
+                          let earliestdirectflight = flightsData[j].flightNumber
+                          console.log(earliestdirectflight)
+                          efficientroute.innerHTML = earliestdirectflight
+                        }
+                      }
+                    }
+                  } else {
+                    efficientroute.innerHTML = ""
+                  }
                 }
               }
             }
@@ -150,3 +183,13 @@ function inputCheck() {
         }
     }
 }
+
+var diff = function(arr, arr2) {
+  var ret = [];
+  for(var i in arr) {
+      if(arr2.indexOf(arr[i]) > -1){
+          ret.push(arr[i]);
+      }
+  }
+  return ret;
+};

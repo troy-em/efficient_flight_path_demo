@@ -39,8 +39,19 @@ const flightsData = [ {
     arrivalPoint: 'WIL',
   } ];
 
+  document.getElementById('flights').innerHTML = flightsData.map(flight =>
+    `<div class="flightdiv">
+      <div><b style="color: #2F558E;">Flight:</b> ${flight.flightNumber}</div>
+      <hr>
+      <div><b style="color: #2F558E;">Depature Date:</b><br> ${new Date(flight.departureDate).toLocaleString()}</div>
+      <div><b style="color: #2F558E;">Arrival Date:</b><br>${new Date(flight.arrivalDate).toLocaleString()}</div>
+      <div><b style="color: #2F558E;">Seats Available:</b><br>${flight.availableSeats}</div>
+      <div><b style="color: #2F558E;">From:</b><br> ${flight.departurePoint}</div>
+      <div><b style="color: #2F558E;">To:</b><br> ${flight.arrivalPoint}</div>
+    </div>`
+).join('')
+
 function efficientflightpath(departurepoint, arrivalpoint) {
-    console.log("Dep,Arr: " +departurepoint +","+arrivalpoint)
 
     // check for flights that match the user arrival point input and departure point
     var efficientroute = document.getElementById("routearr")
@@ -116,9 +127,9 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                   }
 
                   console.log("directflightsduration: "+directflightsduration)
-                  let fastestdirectflight = Math.min(...directflightsduration)
-                  console.log("Fastest Direct Flight: "+fastestdirectflight)
-                  let fastestdirectflights = directflightsduration.filter((v) => (v === fastestdirectflight)).length;
+                  let fastestdirectflightduration = Math.min(...directflightsduration)
+                  console.log("Fastest Direct Flight Duration: "+fastestdirectflightduration)
+                  let fastestdirectflights = directflightsduration.filter((v) => (v === fastestdirectflightduration)).length;
                   console.log("fastestdirectflights: "+fastestdirectflights)
 
                   // if fastestdirectflights is more than one pick the earliest departure time
@@ -148,6 +159,7 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                       }
                     }
                   } else {
+
                     efficientroute.innerHTML = ""
                   }
                 }
@@ -192,4 +204,14 @@ var diff = function(arr, arr2) {
       }
   }
   return ret;
+};
+
+const buttonRight = document.getElementById('slideRight');
+const buttonLeft = document.getElementById('slideLeft');
+
+buttonRight.onclick = function () {
+  document.getElementById('flights').scrollLeft += 20;
+};
+buttonLeft.onclick = function () {
+  document.getElementById('flights').scrollLeft -= 20;
 };

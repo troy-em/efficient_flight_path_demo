@@ -10,7 +10,7 @@ const flightsData = [ {
     flightNumber: 2,
     departureDate: '2022-01-01T18:00:00-05:00',
     arrivalDate: '2022-01-02T19:00:00+03:00',
-    availableSeats: 2,
+    availableSeats: 0,
     departurePoint: 'NYC',
     arrivalPoint: 'NBI',
   },
@@ -154,14 +154,15 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                         if (flightsData[j].flightNumber ==  currentflightnumber && (new Date(flightsData[j].departureDate)).getTime() == (earliestdirectflightdeptime).getTime()) {
                           let earliestdirectflight = flightsData[j].flightNumber
                           console.log(earliestdirectflight)
-                          efficientroute.innerHTML = earliestdirectflight
+                          efficientroute.innerHTML = "Flight "+earliestdirectflight
                         }
                       }
                     }
                   } else {
-
-                    efficientroute.innerHTML = ""
+                    efficientroute.innerHTML = "Flight "+fastestdirectflights.toString()
                   }
+                } else {
+                    efficientroute.innerHTML = "Flight "+directflights.toString()
                 }
               }
             }
@@ -204,14 +205,4 @@ var diff = function(arr, arr2) {
       }
   }
   return ret;
-};
-
-const buttonRight = document.getElementById('slideRight');
-const buttonLeft = document.getElementById('slideLeft');
-
-buttonRight.onclick = function () {
-  document.getElementById('flights').scrollLeft += 20;
-};
-buttonLeft.onclick = function () {
-  document.getElementById('flights').scrollLeft -= 20;
 };

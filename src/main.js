@@ -39,22 +39,23 @@ const flightsData = [ {
     arrivalPoint: 'WIL',
   } ];
 
-  document.getElementById('flights').innerHTML = flightsData.map(flight =>
-    `<div class="flightdiv">
-      <div><b style="color: #2F558E;">Flight:</b> ${flight.flightNumber}</div>
-      <hr>
-      <div><b style="color: #2F558E;">Depature Date:</b><br> ${new Date(flight.departureDate).toLocaleString()}</div>
-      <div><b style="color: #2F558E;">Arrival Date:</b><br>${new Date(flight.arrivalDate).toLocaleString()}</div>
-      <div><b style="color: #2F558E;">Seats Available:</b><br>${flight.availableSeats}</div>
-      <div><b style="color: #2F558E;">From:</b><br> ${flight.departurePoint}</div>
-      <div><b style="color: #2F558E;">To:</b><br> ${flight.arrivalPoint}</div>
-    </div>`
+document.getElementById('flights').innerHTML = flightsData.map(flight =>
+  `<div class="flightdiv">
+    <div><b style="color: #2F558E;">Flight:</b> ${flight.flightNumber}</div>
+    <hr>
+    <div><b style="color: #2F558E;">Depature Date:</b><br> ${new Date(flight.departureDate).toLocaleString()}</div>
+    <div><b style="color: #2F558E;">Arrival Date:</b><br>${new Date(flight.arrivalDate).toLocaleString()}</div>
+    <div><b style="color: #2F558E;">Seats Available:</b><br>${flight.availableSeats}</div>
+    <div><b style="color: #2F558E;">From:</b><br> ${flight.departurePoint}</div>
+    <div><b style="color: #2F558E;">To:</b><br> ${flight.arrivalPoint}</div>
+  </div>`
 ).join('')
 
 function efficientflightpath(departurepoint, arrivalpoint) {
 
     // check for flights that match the user arrival point input and departure point
-    var efficientroute = document.getElementById("routearr")
+    let efficientroute = document.getElementById("routearr")
+    efficientroute.innerHTML = ""
     let matcheddeparturepoint = []
     let matchedarrivalpoint = []
     let matcheddeparturepointwithavailableseats = []
@@ -72,11 +73,13 @@ function efficientflightpath(departurepoint, arrivalpoint) {
 
     // check if departure and arrival points selected are available
     if (matcheddeparturepoint.length === 0) {
-          alert("Sorry! No Flight From "+departurepoint+" currently!")
+        efficientroute.style.color = '#f94449'
+        efficientroute.innerHTML = "Sorry! No Flight From "+departurepoint+" currently!"
     } else {
       console.log("Matched Departure Points: "+matcheddeparturepoint)
       if (matchedarrivalpoint.length === 0) {
-        alert("Sorry! No Flight To "+arrivalpoint+" currently!")
+        efficientroute.style.color = '#f94449'
+        efficientroute.innerHTML = "Sorry! No Flight To "+arrivalpoint+" currently!"
       } else {
         console.log("Matched Arrival Points: "+matchedarrivalpoint)
 
@@ -102,7 +105,8 @@ function efficientflightpath(departurepoint, arrivalpoint) {
         console.log("matchedarrivalpointwithavailableseats: "+matchedarrivalpointwithavailableseats)
 
         if (matcheddeparturepointwithavailableseats.length === 0 || matchedarrivalpointwithavailableseats.length === 0) {
-            alert("Sorry! No Complete Connection from " +departurepoint+" to "+arrivalpoint+" with available seats")
+          efficientroute.style.color = '#f94449'  
+          efficientroute.innerHTML = "Sorry! No Complete Connection from " +departurepoint+" to "+arrivalpoint+" with available seats"
         } else {
 
           // check for direct flights
@@ -154,14 +158,17 @@ function efficientflightpath(departurepoint, arrivalpoint) {
                         if (flightsData[j].flightNumber ==  currentflightnumber && (new Date(flightsData[j].departureDate)).getTime() == (earliestdirectflightdeptime).getTime()) {
                           let earliestdirectflight = flightsData[j].flightNumber
                           console.log(earliestdirectflight)
+                          efficientroute.style.color = '#95bb72'
                           efficientroute.innerHTML = "Flight "+earliestdirectflight
                         }
                       }
                     }
                   } else {
+                    efficientroute.style.color = '#95bb72'
                     efficientroute.innerHTML = "Flight "+fastestdirectflights.toString()
                   }
                 } else {
+                    efficientroute.style.color = '#95bb72'
                     efficientroute.innerHTML = "Flight "+directflights.toString()
                 }
               }
@@ -180,8 +187,10 @@ function inputCheck() {
     var form = document.forms[0];
     var selectDeparturePoint = form.querySelector('input[name="departurepoint"]');
     var departurepoint = selectDeparturePoint.value;
+    let efficientroute = document.getElementById("routearr")
     if (departurepoint=="") {
-        alert("Please Enter Departure Point !")
+      efficientroute.style.color = '#f94449'
+      efficientroute.innerHTML = "Please Enter Departure Point !"
 
     } else {
         console.log("Departure Point: " +departurepoint)
@@ -189,7 +198,8 @@ function inputCheck() {
         var selectArrivalPoint = form.querySelector('input[name="arrivalpoint"]');
         var arrivalpoint = selectArrivalPoint .value;
         if (arrivalpoint=="") {
-            alert("Please Enter Arrival Point !")
+          efficientroute.style.color = '#f94449'
+          efficientroute.innerHTML ="Please Enter Arrival Point !"
         } else {
           console.log("Arrival Point: " +arrivalpoint)
           efficientflightpath(departurepoint, arrivalpoint)

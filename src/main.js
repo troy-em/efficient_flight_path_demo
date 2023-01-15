@@ -26,7 +26,7 @@ const flightsData = [ {
   flightNumber: 4,
   departureDate: '2022-01-03T18:00:00+03:00',
   arrivalDate: '2022-01-03T19:00:00+03:00',
-  availableSeats: 0,
+  availableSeats: 4,
   departurePoint: 'NBI',
   arrivalPoint: 'WIL',
 },

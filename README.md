@@ -14,3 +14,10 @@ According to the "Travel Advisers", single flights or flights with the least num
 
 This solution aims at implement a function to get the route with the least hopes between two points hence the effecient path between them.
 
+PROGRESS:
+
+Implementation for direct flights completed
+
+Implementation for nodirectflights still giving errors -- it is work in progress
+
+
